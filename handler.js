@@ -1,23 +1,35 @@
+// eslint-disable-next-line no-unused-vars
 const { getPage, parsePage, saveRatingsToDB } = require('./utils');
 
-module.exports.hello = async (event) => {
-  // 1. fetch yelp page
+module.exports.scrape = async (event) => {
+  try {
+    const page = await getPage(event);
 
-  // 2. parse the page
-
-  // 3. save the ratings data to our db
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify(
-      {
-        message: 'Go Serverless v1.0! Your function executed successfully!',
-        input: event
-      },
-      null,
-      2
-    )
-  };
+    return {
+      statusCode: page.statusCode,
+      body: JSON.stringify(
+        {
+          message: 'Go Serverless v1.0! Your function executed successfully!',
+          input: event,
+          page
+        },
+        null,
+        2
+      )
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify(
+        {
+          message: `Got error fetching business ${event}`,
+          input: event
+        },
+        null,
+        2
+      )
+    };
+  }
 
   // Use this code if you don't use the http event with the LAMBDA-PROXY integration
   // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
