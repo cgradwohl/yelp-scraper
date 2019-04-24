@@ -19,7 +19,7 @@
 
   "parser": "babel-eslint",
 
-  "plugins": ["prettier", "serverless-eslint-plugin"],
+  "plugins": ["prettier"],
   "extends": ["airbnb", "prettier"],
   "parserOptions": {
     "sourceType": "module",

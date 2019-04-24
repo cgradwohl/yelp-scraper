@@ -1,6 +1,6 @@
-'use strict';
 const { getPage, parsePage, saveRatingsToDB } = require('./utils');
-module.exports.hello = async event => {
+
+module.exports.hello = async (event) => {
   // 1. fetch yelp page
 
   // 2. parse the page
