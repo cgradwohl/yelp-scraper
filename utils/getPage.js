@@ -1,6 +1,6 @@
 const request = require('request-promise');
 
-module.exports = async (business) => {
+module.exports = (business) => {
   const url = `https://www.yelp.com/biz/${business}`;
 
   return request({
