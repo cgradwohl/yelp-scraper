@@ -2,9 +2,9 @@ const { getPage, parsePage, saveRatingsToDB } = require('./utils');
 
 module.exports.scrape = async (event) => {
   try {
-    const page = await getPage(event);
+    const page = await getPage(event); // returns a promise
 
-    const data = await parsePage(page.body);
+    const data = await parsePage(page.body); // returns a promise
 
     await saveRatingsToDB(data, event);
 
@@ -12,7 +12,7 @@ module.exports.scrape = async (event) => {
       statusCode: page.statusCode,
       body: JSON.stringify(
         {
-          message: 'Success!'
+          message: `Successfully scraped ${event}`
         },
         null,
         2
