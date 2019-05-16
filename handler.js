@@ -5,8 +5,10 @@ module.exports.scrape = async (event) => {
     const page = await getPage(event); // returns a promise
 
     const data = await parsePage(page.body); // returns a promise
+    console.log('data', data);
 
-    await saveRatingsToDB(data, event);
+    const dbData = await saveRatingsToDB(data, event);
+    console.log('dbData', dbData);
 
     return {
       statusCode: page.statusCode,
@@ -19,6 +21,7 @@ module.exports.scrape = async (event) => {
       )
     };
   } catch (error) {
+    console.log('error', error);
     return {
       statusCode: error.statusCode,
       body: JSON.stringify(

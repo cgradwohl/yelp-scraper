@@ -9,6 +9,7 @@ module.exports = (data, businessName) => {
   const ts = JSON.stringify(new Date());
   const id = uuid.v1();
 
+  console.log('process.env', process.env.DYNAMODB_TABLE);
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
     Item: {
@@ -17,12 +18,17 @@ module.exports = (data, businessName) => {
       reviewCount,
       rating,
       ts
+    },
+    Expected: {
+      ReturnValues: 'ALL_NEW'
     }
   };
-  dynamoDb.put(params, (error) => {
+  // eslint-disable-next-line func-names
+  dynamoDb.put(params, function(error, dbResponse) {
+    console.log('inside', dbResponse);
     if (error) {
-      return new Error(`Error Saving Data to DB ${JSON.stringify(error)}`);
+      throw new Error(`Error Saving Data to DB ${JSON.stringify(error)}`);
     }
-    return params.Item;
+    return Promise.resolve(dbResponse);
   });
 };
